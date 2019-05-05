@@ -16,6 +16,9 @@ import java.util.*;
  * 
  * @author David J. Barnes and Michael Kölling.
  * @version 2016.02.29
+ * 
+ * @author John Burkert
+ * @version May 5th 2019
  */
 public class Responder
 {
@@ -124,10 +127,19 @@ public class Responder
         Charset charset = Charset.forName("US-ASCII");
         Path path = Paths.get(FILE_OF_DEFAULT_RESPONSES);
         try (BufferedReader reader = Files.newBufferedReader(path, charset)) {
-            String response = reader.readLine();
-            while(response != null) {
+            String response = "";
+            String blankLine = reader.readLine();
+            while(blankLine != null) {
+                if(blankLine.equals("")) {
                 defaultResponses.add(response);
-                response = reader.readLine();
+                response = "";
+            }
+            
+                else {
+                
+                response += blankLine;
+            }
+
             }
         }
         catch(FileNotFoundException e) {
