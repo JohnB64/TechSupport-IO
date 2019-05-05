@@ -70,6 +70,38 @@ public class Responder
      */
     private void fillResponseMap()
     {
+        Charset charset = Charset.forName("US-ASCII");
+        Path path = Paths.get(FILE_OF_DEFAULT_RESPONSES);
+        try (BufferedReader reader = Files.newBufferedReader(path, charset)) {
+            String readerResponse = "";
+            String blankLine = reader.readLine();
+            while(blankLine != null) {
+                if(blankLine.equals("")) {
+                defaultResponses.add(readerResponse.trim());
+                readerResponse = "";
+            }
+            
+                else {
+                readerResponse += blankLine;
+            }
+            blankLine = reader.readLine();
+            }
+        
+        }
+        
+        catch(FileNotFoundException e) {
+            System.err.println("Unable to open " + FILE_OF_DEFAULT_RESPONSES);
+        }
+        catch(IOException e) {
+            System.err.println("A problem was encountered reading " +
+                               FILE_OF_DEFAULT_RESPONSES);
+        }
+        // Make sure we have at least one response.
+        if(defaultResponses.size() == 0) {
+            defaultResponses.add("Could you elaborate on that?");
+        }
+        
+        
         responseMap.put("crash", 
                         "Well, it never crashes on our system. It must have something\n" +
                         "to do with your system. Tell me more about your configuration.");
