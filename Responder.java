@@ -28,6 +28,9 @@ public class Responder
     private ArrayList<String> defaultResponses;
     // The name of the file containing the default responses.
     private static final String FILE_OF_DEFAULT_RESPONSES = "default.txt";
+    
+    private static final String FILE_OF_NEW_RESPONSES = "new_responses.txt";
+    
     private Random randomGenerator;
 
     /**
@@ -71,7 +74,7 @@ public class Responder
     private void fillResponseMap()
     {
         Charset charset = Charset.forName("US-ASCII");
-        Path path = Paths.get(FILE_OF_DEFAULT_RESPONSES);
+        Path path = Paths.get(FILE_OF_NEW_RESPONSES);
         try (BufferedReader reader = Files.newBufferedReader(path, charset)) {
             String readerResponse = "";
             String blankLine = reader.readLine();
